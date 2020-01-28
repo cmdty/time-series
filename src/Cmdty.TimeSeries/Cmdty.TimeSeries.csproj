@@ -5,6 +5,10 @@
     <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">$(TargetFrameworks);net45</TargetFrameworks>
     <PackageId>Cmdty.TimeSeries</PackageId>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/cmdty/time-series</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/cmdty/time-series</RepositoryUrl>
+    <Description>High-performance .NET time series types.</Description>
+    <PackageTags>TimeSeries;TimePeriod</PackageTags>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
