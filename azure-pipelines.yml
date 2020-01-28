@@ -1,0 +1,59 @@
+name: $(Date:yyyyMMdd)$(Rev:rr)
+resources:
+- repo: self
+
+trigger:
+  batch: 'true'
+  branches:
+    include:
+    - master
+
+steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      useGlobalJson: true
+      
+  - task: PowerShell@2
+    displayName: 'Run Cake PowerShell Bootstrapper'
+    inputs:
+      filePath: 'build.ps1'
+      arguments: '-Verbosity Diagnostic -PrereleaseNumber=$(Build.BuildNumber)'
+    env:
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+
+  - task: PublishTestResults@2
+    displayName: 'Publish .NET test results'
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFormat: 'VSTest'
+      testResultsFiles: '**/*.trx'
+      mergeTestResults: true
+      testRunTitle: 'C# Unit Tests'
+
+  - task: PublishCodeCoverageResults@1
+    displayName: 'publish .NET coverage results'
+    condition: succeededOrFailed()
+    inputs:
+      codeCoverageTool: 'cobertura'
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.cobertura.xml'
+
+  - task: CopyFiles@2
+    displayName: Copy NuGet package to Artifact Staging Directory
+    inputs:
+      Contents: artifacts/**
+      TargetFolder: $(Build.ArtifactStagingDirectory)
+      flattenFolders: true
+
+  - task: DotNetCoreCLI@2
+    displayName: Publish NuGet package to cmdty feed
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '18c506cf-ff39-47d5-8884-0ea703f25523'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'publish artifacts'
+    inputs:
+      ArtifactName: 'drop'
