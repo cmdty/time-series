@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A6AE2E42-A14D-43C3-8C0F-FDE7AD54C835}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		NuGet.config = NuGet.config
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmdty.TimeSeries.Samples", "Cmdty.TimeSeries.Samples\Cmdty.TimeSeries.Samples.csproj", "{C2724EF5-1751-4D85-87A5-6FBC46401FBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2724EF5-1751-4D85-87A5-6FBC46401FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2724EF5-1751-4D85-87A5-6FBC46401FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2724EF5-1751-4D85-87A5-6FBC46401FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2724EF5-1751-4D85-87A5-6FBC46401FBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {268D0043-87C9-4A5C-A0ED-3DBE13C2BFFD}
+	EndGlobalSection
+EndGlobal
