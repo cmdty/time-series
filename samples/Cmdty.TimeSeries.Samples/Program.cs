@@ -28,9 +28,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Cmdty.TimePeriodValueTypes;
-using Cmdty.TimeSeries;
 
-namespace Cmdty.Curves.Samples.TimeSeries
+namespace Cmdty.TimeSeries.Samples
 {
     class Program
     {

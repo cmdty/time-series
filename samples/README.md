@@ -5,8 +5,8 @@ a tool which allows C# code to be run in a browser using Markdown files.
 
 The interactive Markdown files need to be setup and run locally using the steps in the steps below.
 
-* Clone the [cmdty/curves](https://github.com/cmdty/curves) repository to your local machine.
-* Open a CLI locally and set the current directory to curves/samples/csharp/ within the cloned repository.
+* Clone the [cmdty/time-series](https://github.com/cmdty/time-series) repository to your local machine.
+* Open a CLI locally and set the current directory to time-series/samples/ within the cloned repository.
 * In the CLI run the following command:
 ```
 > dotnet try
