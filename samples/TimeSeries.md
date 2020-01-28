@@ -1,7 +1,7 @@
 # Time Series
 This markdown file provides interactive documentation using [Try .NET](https://dotnet.microsoft.com/platform/try-dotnet). If you haven't already, follow the instructions on [README](README.md) to set up and run.
 
-The namespace Cmdty.TimeSeries contains a set of types used to represent an associated map, where the key is always a [Time Period Value Type](https://github.com/cmdty/time-period-value-types). Where data is sorted on the key. Time series types objects are immutable, are implicitly ordered by the index time period.
+The Cmdty.TimeSeries package contains a set of types used to represent an associated map, where the key is always a [Time Period Value Type](https://github.com/cmdty/time-period-value-types). Where data is sorted on the key. Time series types objects are immutable, are implicitly ordered by the index time period.
 
 These types are used extensively within the Cmdty library to represent collection of prices for traded commodities, including forward curves. However, there is nothing commodity-specific within the Time Series API, and hence these types could be used in many other non-commodity business contexts.
 
@@ -28,5 +28,8 @@ The maximum number of lines of the string produced using these methods is trunca
 ```
 
 ## DoubleTimeSeries Type
+The DoubleTimeSeries type is a subclass of TimeSeries which can
+only hold data of of the built-in double type. This type offers
+a set of arithmetic operators which operate on the numeric data held, as shown in the examples below.
 ```cs --region doubletimeseries --source-file ./Cmdty.TimeSeries.Samples/Program.cs --project ./Cmdty.TimeSeries.Samples/Cmdty.TimeSeries.Samples.csproj
 ```
