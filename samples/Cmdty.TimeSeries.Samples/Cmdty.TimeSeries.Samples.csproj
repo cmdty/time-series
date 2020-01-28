@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cmdty.TimeSeries" Version="1.0.0-alpha2020012802" />
+    <PackageReference Include="Cmdty.TimeSeries" Version="1.0.0-alpha1" />
   </ItemGroup>
 
   <ItemGroup>
