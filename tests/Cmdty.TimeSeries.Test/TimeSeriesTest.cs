@@ -707,5 +707,39 @@ namespace Cmdty.TimeSeries.Test
             });
         }
 
+        [Test]
+        public void ForConstantData_AsExpected()
+        {
+            var start = new Day(2020, 9, 30);
+            var end = new Day(2020, 12, 15);
+            const double data = 1.25;
+            TimeSeries<Day, double> timeSeries = TimeSeries.ForConstantData(start, end, data);
+
+            Assert.AreEqual(start, timeSeries.Start);
+            Assert.AreEqual(end, timeSeries.End);
+
+            foreach (double x in timeSeries.Data)
+            {
+                Assert.AreEqual(data, x);
+            }
+        }
+
+        [Test]
+        public void FromMap_AsExpected()
+        {
+            var start = new Day(2020, 9, 30);
+            var end = new Day(2020, 12, 15);
+            int Map(Day day) => day.OffsetFrom(start);
+            TimeSeries<Day, int> timeSeries = TimeSeries.FromMap(start, end, Map);
+
+            Assert.AreEqual(start, timeSeries.Start);
+            Assert.AreEqual(end, timeSeries.End);
+
+            foreach ((Day index, int data) in timeSeries)
+            {
+                int expectedData = Map(index);
+                Assert.AreEqual(expectedData, data);
+            }
+        }
     }
 }

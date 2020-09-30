@@ -259,5 +259,21 @@ namespace Cmdty.TimeSeries
             return new TimeSeries<TIndex, TData>(orderedKeys, orderedValues);
         }
 
+        public static TimeSeries<TIndex, TData> FromMap<TIndex, TData>(TIndex start, TIndex end,
+                [NotNull] Func<TIndex, TData> map)
+            where TIndex : ITimePeriod<TIndex>
+        {
+            if (map == null) throw new ArgumentNullException(nameof(map));
+            TIndex[] indices = start.EnumerateTo(end).ToArray();
+            IEnumerable<TData> data = indices.Select(map);
+            return new TimeSeries<TIndex, TData>(indices, data);
+        }
+
+        public static TimeSeries<TIndex, TData> ForConstantData<TIndex, TData>(TIndex start, TIndex end, TData constantData)
+            where TIndex : ITimePeriod<TIndex>
+        {
+            return FromMap(start, end, index => constantData);
+        }
+
     }
 }

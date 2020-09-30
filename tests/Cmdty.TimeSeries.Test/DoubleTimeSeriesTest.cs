@@ -529,5 +529,40 @@ namespace Cmdty.TimeSeries.Test
             Assert.IsTrue(emptyTimeSeries.IsEmpty);
         }
 
+        [Test]
+        public void ForConstantData_AsExpected()
+        {
+            var start = new Day(2020, 9, 30);
+            var end = new Day(2020, 12, 15);
+            const double data = 1.25;
+            DoubleTimeSeries<Day> timeSeries = DoubleTimeSeries.ForConstantData(start, end, data);
+
+            Assert.AreEqual(start, timeSeries.Start);
+            Assert.AreEqual(end, timeSeries.End);
+
+            foreach (double x in timeSeries.Data)
+            {
+                Assert.AreEqual(data, x);
+            }
+        }
+
+        [Test]
+        public void FromMap_AsExpected()
+        {
+            var start = new Day(2020, 9, 30);
+            var end = new Day(2020, 12, 15);
+            double Map(Day day) => day.OffsetFrom(start);
+            DoubleTimeSeries<Day> timeSeries = DoubleTimeSeries.FromMap(start, end, Map);
+
+            Assert.AreEqual(start, timeSeries.Start);
+            Assert.AreEqual(end, timeSeries.End);
+
+            foreach ((Day index, double data) in timeSeries)
+            {
+                double expectedData = Map(index);
+                Assert.AreEqual(expectedData, data);
+            }
+        }
+
     }
 }
