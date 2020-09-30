@@ -123,6 +123,25 @@ namespace Cmdty.TimeSeries
 
         public bool IsEmpty => _data.Length == 0;
 
+        public bool IndicesAreSupersetOf(TIndex start, TIndex end)
+        {
+            if (IsEmpty)
+                return false;
+            return start.CompareTo(Start) >= 0  && end.CompareTo(End) <= 0;
+        }
+
+        public bool IndicesAreSupersetOf<TData2>([NotNull] TimeSeries<TIndex, TData2> other)
+        {
+            if (other == null) throw new ArgumentNullException(nameof(other));
+            if (other.IsEmpty)
+            {
+                if (IsEmpty)
+                    return true;
+                return false;
+            }
+            return IndicesAreSupersetOf(other.Start, other.End);
+        }
+
         // TODO use different exceptions that the IndexOutOfRange which will propagate from array getter
         public TData this[int index] => _data[index];
 

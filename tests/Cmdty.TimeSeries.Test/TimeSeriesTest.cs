@@ -741,5 +741,90 @@ namespace Cmdty.TimeSeries.Test
                 Assert.AreEqual(expectedData, data);
             }
         }
+
+        [Test]
+        public void IndicesAreSupersetOf_StartAndEndEqualTimeSeriesStartAndEnd_ReturnsTrue()
+        {
+            var start = new Day(2020, 9, 30);
+            var end = new Day(2020, 12, 15);
+            const double data = 1.25;
+            TimeSeries<Day, double> timeSeries = TimeSeries.ForConstantData(start, end, data);
+
+            bool indicesAreSupersetOf = timeSeries.IndicesAreSupersetOf(start, end);
+            Assert.IsTrue(indicesAreSupersetOf);
+        }
+
+        [Test]
+        public void IndicesAreSupersetOf_StartEarlierThanTimeSeriesStartEndEqualsTimeSeriesEnd_ReturnsFalse()
+        {
+            var timeSeriesStart = new Day(2020, 9, 30);
+            var timeSeriesEnd = new Day(2020, 12, 15);
+            const double data = 1.25;
+            TimeSeries<Day, double> timeSeries = TimeSeries.ForConstantData(timeSeriesStart, timeSeriesEnd, data);
+
+            bool indicesAreSuperset = timeSeries.IndicesAreSupersetOf(timeSeriesStart - 1, timeSeriesEnd);
+            Assert.IsFalse(indicesAreSuperset);
+        }
+
+        [Test]
+        public void IndicesAreSupersetOf_StartLaterThanTimeSeriesStartEndEqualsTimeSeriesEnd_ReturnsTrue()
+        {
+            var timeSeriesStart = new Day(2020, 9, 30);
+            var timeSeriesEnd = new Day(2020, 12, 15);
+            const double data = 1.25;
+            TimeSeries<Day, double> timeSeries = TimeSeries.ForConstantData(timeSeriesStart, timeSeriesEnd, data);
+
+            bool indicesAreSuperset = timeSeries.IndicesAreSupersetOf(timeSeriesStart + 1, timeSeriesEnd);
+            Assert.IsTrue(indicesAreSuperset);
+        }
+
+        [Test]
+        public void IndicesAreSupersetOf_StartEqualsTimeSeriesStartEndLaterThanTimeSeriesEnd_ReturnsFalse()
+        {
+            var timeSeriesStart = new Day(2020, 9, 30);
+            var timeSeriesEnd = new Day(2020, 12, 15);
+            const double data = 1.25;
+            TimeSeries<Day, double> timeSeries = TimeSeries.ForConstantData(timeSeriesStart, timeSeriesEnd, data);
+
+            bool indicesAreSuperset = timeSeries.IndicesAreSupersetOf(timeSeriesStart, timeSeriesEnd + 1);
+            Assert.IsFalse(indicesAreSuperset);
+        }
+
+        [Test]
+        public void IndicesAreSupersetOf_StartEqualsTimeSeriesStartEndEarlierThanTimeSeriesEnd_ReturnsTrue()
+        {
+            var timeSeriesStart = new Day(2020, 9, 30);
+            var timeSeriesEnd = new Day(2020, 12, 15);
+            const double data = 1.25;
+            TimeSeries<Day, double> timeSeries = TimeSeries.ForConstantData(timeSeriesStart, timeSeriesEnd, data);
+
+            bool indicesAreSuperset = timeSeries.IndicesAreSupersetOf(timeSeriesStart, timeSeriesEnd - 1);
+            Assert.IsTrue(indicesAreSuperset);
+        }
+
+        [Test]
+        public void IndicesAreSupersetOf_StartLaterThanTimeSeriesStartEndEarlierThanTimeSeriesEnd_ReturnsTrue()
+        {
+            var timeSeriesStart = new Day(2020, 9, 30);
+            var timeSeriesEnd = new Day(2020, 12, 15);
+            const double data = 1.25;
+            TimeSeries<Day, double> timeSeries = TimeSeries.ForConstantData(timeSeriesStart, timeSeriesEnd, data);
+
+            bool indicesAreSuperset = timeSeries.IndicesAreSupersetOf(timeSeriesStart + 1, timeSeriesEnd - 1);
+            Assert.IsTrue(indicesAreSuperset);
+        }
+
+        [Test]
+        public void IndicesAreSupersetOf_StartEarlierThanTimeSeriesStartEndLaterThanTimeSeriesEnd_ReturnsFalse()
+        {
+            var timeSeriesStart = new Day(2020, 9, 30);
+            var timeSeriesEnd = new Day(2020, 12, 15);
+            const double data = 1.25;
+            TimeSeries<Day, double> timeSeries = TimeSeries.ForConstantData(timeSeriesStart, timeSeriesEnd, data);
+
+            bool indicesAreSuperset = timeSeries.IndicesAreSupersetOf(timeSeriesStart - 1, timeSeriesEnd + 1);
+            Assert.IsFalse(indicesAreSuperset);
+        }
+
     }
 }
